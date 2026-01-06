@@ -132,6 +132,70 @@
     ctx.fillText(msg, x + tw / 2, y + th / 2);
   }
 
+  // Pixel sprites
+  function ship(ctx, x, y, dir) {
+    ctx.save();
+    ctx.translate(Math.round(x), Math.round(y));
+    const angle = Math.atan2(dir.y, dir.x) + Math.PI / 2;
+    ctx.rotate(angle);
+    ctx.fillStyle = "#d7e3ff";
+    ctx.fillRect(-4, -6, 8, 12);
+    ctx.fillStyle = "#8aa0ff";
+    ctx.fillRect(-6, -2, 12, 4);
+    ctx.fillStyle = "#6ef4ff";
+    ctx.fillRect(-2, 4, 4, 4);
+    ctx.restore();
+  }
+
+  function enemy(ctx, x, y, type) {
+    ctx.save();
+    ctx.translate(Math.round(x), Math.round(y));
+    const color = type.color || "#ff6b6b";
+    ctx.fillStyle = color;
+    ctx.fillRect(-5, -5, 10, 10);
+    ctx.fillStyle = "rgba(0,0,0,0.25)";
+    ctx.fillRect(-2, -2, 4, 4);
+    ctx.restore();
+  }
+
+  function orb(ctx, x, y, size) {
+    ctx.fillStyle = "#6ef4ff";
+    ctx.fillRect(Math.round(x - size / 2), Math.round(y - size / 2), size, size);
+  }
+
+  function projectile(ctx, x, y, size, color) {
+    ctx.fillStyle = color || "#ffd166";
+    ctx.fillRect(Math.round(x - size / 2), Math.round(y - size / 2), size, size);
+  }
+
+  function ring(ctx, x, y, r, color) {
+    ctx.strokeStyle = color || "rgba(180,220,255,0.6)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  function joystick(ctx, joy) {
+    if (!joy.active) return;
+    ctx.fillStyle = "rgba(120,160,255,0.2)";
+    ctx.beginPath();
+    ctx.arc(joy.anchorX, joy.anchorY, joy.radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "rgba(200,220,255,0.5)";
+    ctx.beginPath();
+    ctx.arc(joy.x, joy.y, joy.radius * 0.4, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function hudText(ctx, x, y, text, align) {
+    ctx.fillStyle = "#eaf1ff";
+    ctx.font = "12px monospace";
+    ctx.textAlign = align || "left";
+    ctx.textBaseline = "top";
+    ctx.fillText(text, x, y);
+  }
+
   // Public API
   window.Draw = {
     setCtx,
@@ -144,5 +208,12 @@
     bigValue,
     listItem,
     toast,
+    ship,
+    enemy,
+    orb,
+    projectile,
+    ring,
+    joystick,
+    hudText,
   };
 })();
