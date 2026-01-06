@@ -54,7 +54,7 @@ window.WEAPONS = [
   {
     id: "gravity_well",
     name: "Gravity Well",
-    base: { dps: 14, duration: 2.5, radius: 70 },
+    base: { dps: 14, duration: 2.5, radius: 70, cooldown: 4.2 },
     scalesWith: ["damage_pct", "area_pct"],
     notes: "Creates a zone that pulls/slows enemies and deals continuous damage.",
   },
